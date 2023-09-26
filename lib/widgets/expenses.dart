@@ -18,6 +18,7 @@ class _ExpensesState extends State<Expenses> {
 
   void _openAddExpenseSheet() {
     showModalBottomSheet(
+      useSafeArea: true,
       context: context,
       builder: (context) {
         return NewExpense(
@@ -61,6 +62,8 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     Widget mainContent = const Center(
       child: Text(
         'Pas de dépenses de trouver. \nCommencer par en ajouter une!',
@@ -82,16 +85,31 @@ class _ExpensesState extends State<Expenses> {
           'Suivi de dépenses',
         ),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Chart(expenses: _registeredExpenses),
-            Expanded(
-              child: mainContent,
+      body: width < 600
+          ? Column(
+              children: [
+                Chart(
+                  expenses: _registeredExpenses,
+                ),
+                Expanded(
+                  child: mainContent,
+                ),
+              ],
+            )
+          : SafeArea(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Chart(
+                      expenses: _registeredExpenses,
+                    ),
+                  ),
+                  Expanded(
+                    child: mainContent,
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 211, 186, 252),
         onPressed: _openAddExpenseSheet,

@@ -1,8 +1,11 @@
-import 'package:expense_tracker_app/widgets/expenses.dart';
+// Dependencies
 import 'package:flutter/material.dart';
+// Widgets and Screens
+import 'package:expense_tracker_app/widgets/expenses.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
+
   runApp(const MyApp());
 }
 
